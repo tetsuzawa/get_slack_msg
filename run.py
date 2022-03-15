@@ -28,22 +28,16 @@ while True:
     res = requests.get(url, headers=header, params=payload)
     dic = res.json()
 
-    # edited = raw.replace('"', '\\"')
-    # edited = edited.replace('\'', '"')
-    # edited = edited.replace('True', 'true')
-    # edited = edited.replace('False', 'false')
-    # edited = edited.replace('None', '""')
-    # edited = edited.replace('\\xa', '')
-
-    # dic = json.loads(edited)
     for msg in dic["messages"]:
         msgs.append(msg["text"])
 
     print(len(msgs), file=sys.stderr)
-    print(msgs[0], file=sys.stderr)
+    print(msgs[-1], file=sys.stderr)
     if not dic["has_more"]:
         break
     cursor = dic["response_metadata"]["next_cursor"]
 
+
+msgs.reverse()
 print("\n".join(msgs))
 
